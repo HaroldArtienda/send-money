@@ -6,9 +6,27 @@ import 'package:send_money/utils/constants.dart';
 final GoRouter router = GoRouter(
   routes: <RouteBase>[
     GoRoute(
-      path: loginRoute,
+      path: SMRoute.login.path,
       builder: (ctx, state) {
         return LoginScreen();
+      },
+    ),
+    GoRoute(
+      path: SMRoute.home.path,
+      builder: (ctx, state) {
+        return Scaffold();
+      },
+    ),
+    GoRoute(
+      path: SMRoute.sendMoney.path,
+      builder: (ctx, state) {
+        return Scaffold();
+      },
+    ),
+    GoRoute(
+      path: SMRoute.transaction.path,
+      builder: (ctx, state) {
+        return Scaffold();
       },
     ),
   ],
