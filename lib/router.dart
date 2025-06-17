@@ -16,19 +16,25 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: SMRoute.home.path,
       builder: (ctx, state) {
-        return Scaffold();
+        return Scaffold(
+          appBar: AppBar(),
+        );
       },
     ),
     GoRoute(
       path: SMRoute.sendMoney.path,
       builder: (ctx, state) {
-        return Scaffold();
+        return Scaffold(
+          appBar: AppBar(),
+        );
       },
     ),
     GoRoute(
       path: SMRoute.transaction.path,
       builder: (ctx, state) {
-        return Scaffold();
+        return Scaffold(
+          appBar: AppBar(),
+        );
       },
     ),
   ],

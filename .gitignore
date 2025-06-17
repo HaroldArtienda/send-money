@@ -13,6 +13,9 @@ build/
 **/*.freezed.dart
 **/*.floor.dart
 
+#dart_sdk
+*.xml
+
 # Android
 android/.gradle/
 android/captures/

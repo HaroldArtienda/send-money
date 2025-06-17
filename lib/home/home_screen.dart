@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:send_money/utils/constants.dart';
 import 'package:send_money/utils/extensions.dart';
 import 'package:send_money/utils/sm_text_style.dart';
 
@@ -13,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool isVisible = false;
+  bool isVisible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          isVisible? formatMoney(124563.80) : "₱●●●●●●",
+                          isVisible ? formatMoney(124563.80) : "₱●●●●●●",
                           style: SMTextStyle.moneyTitle(context),
                         ),
                         IconButton(
@@ -55,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       "Wallet Balance",
                       style: SMTextStyle.balanceTitle(),
                     ),
-                    SizedBox(height: 16.0),
+                    const SizedBox(height: 16.0),
                     Row(
                       children: [
                         Expanded(
@@ -64,17 +66,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: double.infinity,
                             title: 'Send Money',
                             isFilled: true,
-                            onTap: () {},
+                            onTap: () => context.push(SMRoute.sendMoney.path),
                           ),
                         ),
-                        SizedBox(width: 16.0),
+                        const SizedBox(width: 16.0),
                         Expanded(
                           child: SMCommonButton(
                             height: context.height * 0.05,
                             width: double.infinity,
                             title: 'View Transactions',
                             isFilled: false,
-                            onTap: () {},
+                            onTap: () => context.push(SMRoute.transaction.path),
                           ),
                         ),
                       ],
@@ -91,9 +93,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   String formatMoney(double amount) {
     final formatCurrency = NumberFormat.currency(
-      locale: 'en_PH', // Filipino locale
-      symbol: '₱', // Peso symbol
-      decimalDigits: 2, // 2 decimal places
+      locale: 'en_PH',
+      symbol: '₱',
+      decimalDigits: 2,
     );
     return formatCurrency.format(amount);
   }
