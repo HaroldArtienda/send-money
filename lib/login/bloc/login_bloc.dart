@@ -5,10 +5,9 @@ import 'package:send_money/login/interactor/login_interactor.dart';
 import 'package:send_money/login/interactor/login_interactor_impl.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  final LoginInteractor interactor =
-      LoginInteractorImpl(); //todo: update to get_it
+  final LoginInteractor interactor;
 
-  LoginBloc() : super(LoginState.initial()) {
+  LoginBloc(this.interactor) : super(LoginState.initial()) {
     on<Login>(_login);
   }
 
