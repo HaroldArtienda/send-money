@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:send_money/home/home_screen.dart';
 import 'package:send_money/login/login_screen.dart';
+import 'package:send_money/send_money/send_money_screen.dart';
 import 'package:send_money/utils/constants.dart';
 
 final GoRouter router = GoRouter(
@@ -16,17 +17,13 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: SMRoute.home.path,
       builder: (ctx, state) {
-        return Scaffold(
-          appBar: AppBar(),
-        );
+        return HomeScreen();
       },
     ),
     GoRoute(
       path: SMRoute.sendMoney.path,
       builder: (ctx, state) {
-        return Scaffold(
-          appBar: AppBar(),
-        );
+        return SendMoneyScreen();
       },
     ),
     GoRoute(

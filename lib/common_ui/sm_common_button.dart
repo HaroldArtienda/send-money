@@ -28,14 +28,23 @@ class SMCommonButton extends StatelessWidget {
         onTap: null,
         borderRadius: BorderRadius.circular(16.0),
         child: MaterialButton(
-          onPressed: isEnabled ? onTap : null,
-          color: isFilled ? context.theme.primaryColor : null,
-          textColor: isFilled ? Colors.white : context.theme.primaryColor,
+          onPressed: isEnabled ? onTap : () {},
+          color: isEnabled
+              ? (isFilled ? context.theme.primaryColor : null)
+              : (isFilled ? Colors.grey.shade600 : null),
+          textColor: isEnabled
+              ? (isFilled ? Colors.white : context.theme.primaryColor)
+              : (isFilled ? Colors.white : Colors.grey.shade600),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.0),
             side: isFilled
                 ? BorderSide.none
-                : BorderSide(color: context.theme.primaryColor, width: 2.0),
+                : BorderSide(
+                    color: isEnabled
+                        ? context.theme.primaryColor
+                        : Colors.grey.shade600,
+                    width: 2.0,
+                  ),
           ),
           child: Text(title),
         ),
