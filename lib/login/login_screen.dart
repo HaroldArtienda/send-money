@@ -1,8 +1,13 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:send_money/common_ui/sm_common_button.dart';
 import 'package:send_money/common_ui/sm_common_text_field.dart';
+import 'package:send_money/login/bloc/login_bloc.dart';
+import 'package:send_money/login/bloc/login_event.dart';
+import 'package:send_money/login/bloc/login_state.dart';
 import 'package:send_money/utils/constants.dart';
 import 'package:send_money/utils/extensions.dart';
 import 'package:send_money/utils/sm_text_style.dart';
@@ -26,14 +31,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final loginBloc = context.read<LoginBloc>();
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -57,9 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 labelText: "Email Address",
                 keyboardType: TextInputType.emailAddress,
                 validator: _emailValidator,
-                onChanged: (value) {
-                  setState(() => _email = value);
-                },
+                onChanged: (value) => setState(() => _email = value),
               ),
               const SizedBox(height: 16.0),
               SMCommonTextField(
@@ -68,22 +66,31 @@ class _LoginScreenState extends State<LoginScreen> {
                 keyboardType: TextInputType.visiblePassword,
                 obscureText: true,
                 validator: _passwordValidator,
-                onChanged: (value) {
-                  setState(() => _email = value);
-                },
+                onChanged: (value) => setState(() => _email = value),
               ),
               const SizedBox(height: 16.0),
-              SMCommonButton(
-                height: context.height * 0.05,
-                width: double.infinity,
-                title: 'Login',
-                isFilled: true,
-                onTap: () {
-                  if (_formKey.currentState?.validate() ?? false) {
-                    //no op
-                  } else {
-                    //no op
+              BlocConsumer<LoginBloc, LoginState>(
+                listener: (context, state) {
+                  if (state.error.isNotEmpty && !state.isLoading) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(state.error)),
+                    );
                   }
+
+                  if (state.succcess && !state.isLoading) {
+                    context.replace(SMRoute.home.path);
+                  }
+                },
+                builder: (context, state) {
+                  return state.isLoading
+                      ? CircularProgressIndicator()
+                      : SMCommonButton(
+                          height: context.height * 0.05,
+                          width: double.infinity,
+                          title: 'Login',
+                          isFilled: true,
+                          onTap: () => validate(loginBloc),
+                        );
                 },
               ),
             ],
@@ -91,6 +98,14 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void validate(LoginBloc loginBloc) {
+    if (_formKey.currentState?.validate() ?? false) {
+      loginBloc.add(
+        Login(_emailController.text, _passwordController.text),
+      );
+    }
   }
 
   String? _emailValidator(String? value) {

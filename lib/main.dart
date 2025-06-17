@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:send_money/login/bloc/login_bloc.dart';
 import 'package:send_money/router.dart';
 
 Future<void> main() async {
@@ -12,9 +13,14 @@ class SendMoney extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<LoginBloc>(create: (context) => LoginBloc()),
+      ],
+      child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         routerConfig: router,
-      );
+      ),
+    );
   }
 }
