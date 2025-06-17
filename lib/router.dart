@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:send_money/home/home_screen.dart';
 import 'package:send_money/login/login_screen.dart';
 import 'package:send_money/utils/constants.dart';
 
@@ -8,7 +9,8 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: SMRoute.login.path,
       builder: (ctx, state) {
-        return LoginScreen();
+        // return LoginScreen();
+        return HomeScreen();
       },
     ),
     GoRoute(
