@@ -53,7 +53,6 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 24.0),
               SMCommonTextField(
                 controller: _emailController,
-                hintText: "example@email.com",
                 labelText: "Email Address",
                 keyboardType: TextInputType.emailAddress,
                 validator: _emailValidator,
@@ -77,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     );
                   }
 
-                  if (state.succcess && !state.isLoading) {
+                  if (state.success && !state.isLoading) {
                     context.replace(SMRoute.home.path);
                   }
                 },

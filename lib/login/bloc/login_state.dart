@@ -2,12 +2,12 @@ import 'package:equatable/equatable.dart';
 
 class LoginState extends Equatable {
   final bool isLoading;
-  final bool succcess;
+  final bool success;
   final String error;
 
   const LoginState({
     required this.isLoading,
-    required this.succcess,
+    required this.success,
     required this.error,
   });
 
@@ -18,14 +18,14 @@ class LoginState extends Equatable {
   }) {
     return LoginState(
       isLoading: isLoading ?? this.isLoading,
-      succcess: success ?? this.succcess,
+      success: success ?? this.success,
       error: error ?? this.error,
     );
   }
 
   factory LoginState.initial() =>
-      LoginState(isLoading: false, succcess: false, error: '');
+      LoginState(isLoading: false, success: false, error: '');
 
   @override
-  List<Object> get props => [isLoading, succcess, error];
+  List<Object> get props => [isLoading, success, error];
 }
