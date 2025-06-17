@@ -51,6 +51,7 @@ web/.dart_tool/
 
 # IntelliJ / Android Studio
 .idea/
+.idea/libraries
 *.iml
 *.ipr
 *.iws
