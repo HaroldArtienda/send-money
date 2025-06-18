@@ -63,4 +63,14 @@ class MockTransactionService extends _i1.Mock
         returnValue:
             _i3.Future<List<_i4.Transaction>>.value(<_i4.Transaction>[]),
       ) as _i3.Future<List<_i4.Transaction>>);
+
+  @override
+  _i3.Future<_i4.Transaction?> createTransaction(Map<String, dynamic>? json) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createTransaction,
+          [json],
+        ),
+        returnValue: _i3.Future<_i4.Transaction?>.value(),
+      ) as _i3.Future<_i4.Transaction?>);
 }

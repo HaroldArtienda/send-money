@@ -6,8 +6,10 @@
 import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:send_money/dto/transaction.dart' as _i4;
 import 'package:send_money/send_money/interactor/send_money_interactor.dart'
     as _i2;
+import 'package:send_money/service/transaction_service.dart' as _i5;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -33,11 +35,50 @@ class MockSendMoneyInteractor extends _i1.Mock
   }
 
   @override
-  _i3.Future<bool> isValid(double? amount) => (super.noSuchMethod(
+  bool isValid(double? amount) => (super.noSuchMethod(
         Invocation.method(
           #isValid,
           [amount],
         ),
-        returnValue: _i3.Future<bool>.value(false),
-      ) as _i3.Future<bool>);
+        returnValue: false,
+      ) as bool);
+
+  @override
+  _i3.Future<_i4.Transaction?> sendMoney(double? amount) => (super.noSuchMethod(
+        Invocation.method(
+          #sendMoney,
+          [amount],
+        ),
+        returnValue: _i3.Future<_i4.Transaction?>.value(),
+      ) as _i3.Future<_i4.Transaction?>);
+}
+
+/// A class which mocks [TransactionService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockTransactionService extends _i1.Mock
+    implements _i5.TransactionService {
+  MockTransactionService() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<List<_i4.Transaction>> getTransactions() => (super.noSuchMethod(
+        Invocation.method(
+          #getTransactions,
+          [],
+        ),
+        returnValue:
+            _i3.Future<List<_i4.Transaction>>.value(<_i4.Transaction>[]),
+      ) as _i3.Future<List<_i4.Transaction>>);
+
+  @override
+  _i3.Future<_i4.Transaction?> createTransaction(Map<String, dynamic>? json) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createTransaction,
+          [json],
+        ),
+        returnValue: _i3.Future<_i4.Transaction?>.value(),
+      ) as _i3.Future<_i4.Transaction?>);
 }
