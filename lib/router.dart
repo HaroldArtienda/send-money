@@ -7,6 +7,8 @@ import 'package:send_money/home/home_screen.dart';
 import 'package:send_money/login/login_screen.dart';
 import 'package:send_money/modules.dart';
 import 'package:send_money/send_money/send_money_screen.dart';
+import 'package:send_money/transaction/bloc/transaction_bloc.dart';
+import 'package:send_money/transaction/transaction_screen.dart';
 import 'package:send_money/utils/constants.dart';
 
 final GoRouter router = GoRouter(
@@ -34,9 +36,9 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: SMRoute.transaction.path,
       builder: (ctx, state) {
-        return Scaffold(
-          appBar: AppBar(),
-        );
+        return  BlocProvider(
+            create: (_) => TransactionBloc(dependency<DefaultModule>().transactionInteractor),
+            child: TransactionScreen());
       },
     ),
   ],

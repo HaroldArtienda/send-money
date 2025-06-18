@@ -111,13 +111,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-  String formatMoney(double amount) {
-    final formatCurrency = NumberFormat.currency(
-      locale: 'en_PH',
-      symbol: '₱',
-      decimalDigits: 2,
-    );
-    return formatCurrency.format(amount);
-  }
 }

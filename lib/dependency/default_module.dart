@@ -9,6 +9,8 @@ import 'package:send_money/send_money/interactor/send_money_interactor.dart';
 import 'package:send_money/send_money/interactor/send_money_interactor_impl.dart';
 import 'package:send_money/service/transaction_service.dart';
 import 'package:send_money/service/transaction_service_impl.dart';
+import 'package:send_money/transaction/interactor/transaction_interactor.dart';
+import 'package:send_money/transaction/interactor/transaction_interactor_impl.dart';
 
 final defaultModuleDependency = GetIt.instance;
 
@@ -17,6 +19,7 @@ class DefaultModule implements Module {
   late final SendMoneyInteractor sendMoneyInteractor;
   late final TransactionService transactionService;
   late final HomeInteractor homeInteractor;
+  late final TransactionInteractor transactionInteractor;
 
   @override
   Future<void> setupDependencies() async {
@@ -26,6 +29,7 @@ class DefaultModule implements Module {
     sendMoneyInteractor = SendMoneyInteractorImpl();
     transactionService = TransactionServiceImpl(networkModule.provideDio);
     homeInteractor = HomeInteractorImpl(transactionService);
+    transactionInteractor = TransactionInteractorImpl(transactionService);
 
     defaultModuleDependency.registerSingleton<DefaultModule>(this);
   }

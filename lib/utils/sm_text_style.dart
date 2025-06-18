@@ -22,4 +22,22 @@ class SMTextStyle {
         fontWeight: FontWeight.w500,
         color: Colors.blueGrey,
       );
+
+  static transactionDateTitle() => TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: Colors.grey,
+  );
+
+  static transactionIdTitle() => TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: Colors.black,
+  );
+
+  static transactionAmountTitle(bool isDeposit) => TextStyle(
+    fontSize: 16,
+    color: isDeposit ? Colors.green : Colors.red,
+    fontWeight: FontWeight.bold,
+  );
 }

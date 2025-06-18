@@ -16,8 +16,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   Future<void> _getWalletMoney(
       GetWalletMoney event, Emitter<HomeState> emit) async {
-    emit(state.copyWith(isLoading: true));
-    final totalAmount = await interactor.getWallet();
-    emit(state.copyWith(walletMoney: totalAmount, isLoading: false));
+    try {
+      emit(state.copyWith(isLoading: true));
+      final totalAmount = await interactor.getWallet();
+      emit(state.copyWith(walletMoney: totalAmount, isLoading: false));
+    } catch (e) {
+      emit(state.copyWith(isLoading: false));
+    }
   }
 }
