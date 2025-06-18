@@ -5,6 +5,7 @@ import 'package:send_money/home/bloc/home_bloc.dart';
 import 'package:send_money/login/bloc/login_bloc.dart';
 import 'package:send_money/modules.dart';
 import 'package:send_money/router.dart';
+import 'package:send_money/send_money/bloc/send_money_bloc.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,9 +22,9 @@ class SendMoney extends StatelessWidget {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider<LoginBloc>(
-            create: (context) => LoginBloc(defaultModule.loginInteractor)),
+        BlocProvider<LoginBloc>(create: (context) => LoginBloc(defaultModule.loginInteractor)),
         BlocProvider<HomeBloc>(create: (context) => HomeBloc()),
+        BlocProvider<SendMoneyBloc>(create: (context) => SendMoneyBloc(defaultModule.sendMoneyInteractor)),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

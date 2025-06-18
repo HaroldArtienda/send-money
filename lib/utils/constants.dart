@@ -10,5 +10,12 @@ enum SMRoute {
   const SMRoute(this.path);
 }
 
+//status
+enum SendMoneyStatus {
+  notStarted,
+  loading,
+  done,
+}
+
 //constants
 final RegExp emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+$');
