@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:send_money/common_ui/sm_bottom_sheet.dart';
 import 'package:send_money/common_ui/sm_common_button.dart';
 import 'package:send_money/common_ui/sm_common_text_field.dart';
+import 'package:send_money/common_ui/sm_logout_fab.dart';
 import 'package:send_money/utils/constants.dart';
 
 class SendMoneyScreen extends StatefulWidget {
@@ -51,6 +52,7 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: const SMLogoutFAB(),
       appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(24.0),

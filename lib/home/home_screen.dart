@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:send_money/common_ui/sm_logout_fab.dart';
 import 'package:send_money/home/bloc/home_bloc.dart';
 import 'package:send_money/home/bloc/home_state.dart';
 import 'package:send_money/utils/constants.dart';
@@ -23,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: const SMLogoutFAB(),
       body: Center(
         child: Container(
           padding: EdgeInsets.all(16.0),

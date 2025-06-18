@@ -10,8 +10,7 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: SMRoute.login.path,
       builder: (ctx, state) {
-        // return LoginScreen();
-        return HomeScreen();
+        return LoginScreen();
       },
     ),
     GoRoute(
