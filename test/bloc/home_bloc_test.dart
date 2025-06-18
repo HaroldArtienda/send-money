@@ -1,14 +1,21 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 import 'package:send_money/home/bloc/home_bloc.dart';
 import 'package:send_money/home/bloc/home_event.dart';
 import 'package:send_money/home/bloc/home_state.dart';
 
+import '../mocks/home_mocks.mocks.dart';
+
 main() {
+  final double fakeMoney = 124590.91;
   late HomeBloc bloc;
+  late MockHomeInteractor mockHomeInteractor;
 
   setUp(() {
-    bloc = HomeBloc();
+    mockHomeInteractor = MockHomeInteractor();
+    when(mockHomeInteractor.getWallet()).thenAnswer((_) async => fakeMoney);
+    bloc = HomeBloc(mockHomeInteractor);
   });
 
   tearDown(() {
@@ -16,17 +23,35 @@ main() {
   });
 
   group('HomeBloc', () {
-    final double fakeMoney = 124590.91;
 
-    blocTest(
-      'emit success walletMoney',
-      build: () => HomeBloc(),
-      act: (bloc) => bloc.add(GetWalletMoney()),
-      wait: Duration(milliseconds: 2200),
-      expect: () => [
-        HomeState(walletMoney: 0.0, isLoading: true, error: ''),
-        HomeState(walletMoney: fakeMoney, isLoading: false, error: '')
-      ]
-    );
+    blocTest('emit success walletMoney',
+        build: () {
+          when(mockHomeInteractor.getWallet()).thenAnswer((_) async {
+            return fakeMoney;
+          });
+          return HomeBloc(mockHomeInteractor);
+        },
+        expect: () => [
+              HomeState(walletMoney: 0.0, isLoading: true, error: ''),
+              HomeState(walletMoney: fakeMoney, isLoading: false, error: '')
+            ],
+        verify: (_) {
+          verify(mockHomeInteractor.getWallet()).called(2);
+        });
+
+    blocTest('emit success walletMoney is 0',
+        build: () {
+          when(mockHomeInteractor.getWallet()).thenAnswer((_) async {
+            return 0;
+          });
+          return HomeBloc(mockHomeInteractor);
+        },
+        expect: () => [
+          HomeState(walletMoney: 0.0, isLoading: true, error: ''),
+          HomeState(walletMoney: 0.0, isLoading: false, error: '')
+        ],
+        verify: (_) {
+          verify(mockHomeInteractor.getWallet()).called(2);
+        });
   });
 }
