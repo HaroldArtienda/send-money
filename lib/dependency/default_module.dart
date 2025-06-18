@@ -25,9 +25,10 @@ class DefaultModule implements Module {
   Future<void> setupDependencies() async {
     final networkModule = defaultModuleDependency<NetworkModule>();
 
-    loginInteractor = LoginInteractorImpl();
-    sendMoneyInteractor = SendMoneyInteractorImpl();
     transactionService = TransactionServiceImpl(networkModule.provideDio);
+
+    loginInteractor = LoginInteractorImpl();
+    sendMoneyInteractor = SendMoneyInteractorImpl(transactionService);
     homeInteractor = HomeInteractorImpl(transactionService);
     transactionInteractor = TransactionInteractorImpl(transactionService);
 

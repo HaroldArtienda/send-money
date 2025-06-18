@@ -13,10 +13,23 @@ class SendMoneyBloc extends Bloc<SendMoneyEvent, SendMoneyState> {
 
   Future<void> _sendMoney(SendMoney event, Emitter<SendMoneyState> emit) async {
     emit(state.copyWith(status: SendMoneyStatus.loading));
+    try {
+      final isSuccess = sendMoneyInteractor.isValid(event.amount);
 
-    final isSuccess = await sendMoneyInteractor.isValid(event.amount);
+      if (isSuccess) {
+        final response =
+            await sendMoneyInteractor.sendMoney(event.amount);
 
-    emit(state.copyWith(success: isSuccess, status: SendMoneyStatus.done));
-    emit(SendMoneyState.initial()); //reset for formText
+        if (response != null) {
+          emit(state.copyWith(success: true, status: SendMoneyStatus.done));
+        }
+      } else {
+        emit(state.copyWith(success: false, status: SendMoneyStatus.done));
+      }
+    } catch (e) {
+      emit(state.copyWith(success: false, status: SendMoneyStatus.done));
+    } finally {
+      emit(SendMoneyState.initial());
+    }
   }
 }

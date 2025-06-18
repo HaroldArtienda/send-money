@@ -22,13 +22,6 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
   final TextEditingController _amountController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  void _handleSend(SendMoneyBloc bloc) {
-    if (_formKey.currentState?.validate() ?? false) {
-      final parsedAmount = double.tryParse(_amountController.text) ?? 0;
-      bloc.add(SendMoney(parsedAmount));
-    }
-  }
-
   void _showResultBottomSheet({
     required bool isSuccess,
     required String amount,
@@ -98,6 +91,13 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
         ),
       ),
     );
+  }
+
+  void _handleSend(SendMoneyBloc bloc) {
+    if (_formKey.currentState?.validate() ?? false) {
+      final parsedAmount = double.tryParse(_amountController.text) ?? 0;
+      bloc.add(SendMoney(parsedAmount));
+    }
   }
 
   String? validator(value) {

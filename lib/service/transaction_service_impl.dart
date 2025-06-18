@@ -19,4 +19,18 @@ class TransactionServiceImpl implements TransactionService {
       return [];
     }
   }
+
+  @override
+  Future<Transaction?> createTransaction(Map<String, dynamic> json) async {
+    try {
+      final response = await _service.post(
+        'transactions',
+        data: json,
+      );
+
+      return Transaction.fromJson(response.data);
+    } on DioException catch (_) {
+      return null;
+    }
+  }
 }

@@ -1,4 +1,7 @@
+import 'package:send_money/dto/transaction.dart';
+
 abstract class SendMoneyInteractor {
 
-  Future<bool> isValid(double amount);
+  bool isValid(double amount);
+  Future<Transaction?> sendMoney(double amount);
 }
