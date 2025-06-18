@@ -43,7 +43,7 @@ class SMBottomSheet extends StatelessWidget {
             isFilled: true,
             onTap: () {
               Navigator.of(context).pop();
-              isSuccess ? context.pop() : null;
+              isSuccess ? context.pop(true) : null;
             },
           ),
         ],

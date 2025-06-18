@@ -1,11 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:send_money/home/bloc/home_event.dart';
 import 'package:send_money/home/bloc/home_state.dart';
+import 'package:send_money/home/interactor/home_interactor.dart';
+import 'package:send_money/service/transaction_service.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final double money = 124590.91;
+  late final HomeInteractor interactor;
 
-  HomeBloc() : super(HomeState.initial()) {
+  HomeBloc(this.interactor) : super(HomeState.initial()) {
     on<GetWalletMoney>(_getWalletMoney);
 
     add(GetWalletMoney());
@@ -14,9 +17,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Future<void> _getWalletMoney(
       GetWalletMoney event, Emitter<HomeState> emit) async {
     emit(state.copyWith(isLoading: true));
-
-    //fake loading
-    await Future.delayed(Duration(milliseconds: 2000));
-    emit(state.copyWith(walletMoney: money, isLoading: false));
+    final totalAmount = await interactor.getWallet();
+    emit(state.copyWith(walletMoney: totalAmount, isLoading: false));
   }
 }

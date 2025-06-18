@@ -10,6 +10,7 @@ import 'package:send_money/utils/extensions.dart';
 import 'package:send_money/utils/sm_text_style.dart';
 
 import '../common_ui/sm_common_button.dart';
+import 'bloc/home_event.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,6 +24,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final homeBloc = context.read<HomeBloc>();
+
     return Scaffold(
       floatingActionButton: const SMLogoutFAB(),
       body: Center(
@@ -78,7 +81,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: double.infinity,
                             title: 'Send Money',
                             isFilled: true,
-                            onTap: () => context.push(SMRoute.sendMoney.path),
+                            onTap: () async {
+                              await context.push(SMRoute.sendMoney.path);
+                              homeBloc.add(GetWalletMoney());
+                            },
                           ),
                         ),
                         const SizedBox(width: 16.0),
@@ -88,7 +94,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: double.infinity,
                             title: 'View Transactions',
                             isFilled: false,
-                            onTap: () => context.push(SMRoute.transaction.path),
+                            onTap: () async {
+                              await context.push(SMRoute.transaction.path);
+                              homeBloc.add(GetWalletMoney());
+                            },
                           ),
                         ),
                       ],

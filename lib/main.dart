@@ -23,7 +23,7 @@ class SendMoney extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<LoginBloc>(create: (context) => LoginBloc(defaultModule.loginInteractor)),
-        BlocProvider<HomeBloc>(create: (context) => HomeBloc()),
+        BlocProvider<HomeBloc>(create: (context) => HomeBloc(defaultModule.homeInteractor)),
         BlocProvider<SendMoneyBloc>(create: (context) => SendMoneyBloc(defaultModule.sendMoneyInteractor)),
       ],
       child: MaterialApp.router(
