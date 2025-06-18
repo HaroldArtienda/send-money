@@ -77,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   }
 
                   if (state.success && !state.isLoading) {
-                    context.replace(SMRoute.home.path);
+                    context.go(SMRoute.home.path);
                   }
                 },
                 builder: (context, state) {
