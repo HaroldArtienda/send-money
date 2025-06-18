@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:send_money/utils/extensions.dart';
 
 class SMCommonTextField extends StatefulWidget {
@@ -10,6 +11,7 @@ class SMCommonTextField extends StatefulWidget {
   final String? Function(String?)? validator;
   final bool obscureText;
   final Widget? suffixIcon;
+  final List<TextInputFormatter>? inputFormatters;
 
   const SMCommonTextField({
     super.key,
@@ -21,6 +23,7 @@ class SMCommonTextField extends StatefulWidget {
     this.validator,
     this.obscureText = false,
     this.suffixIcon,
+    this.inputFormatters,
   });
 
   @override
@@ -59,6 +62,7 @@ class _SMCommonTextFieldState extends State<SMCommonTextField> {
       onChanged: widget.onChanged,
       keyboardType: widget.keyboardType,
       obscureText: _isObscure,
+      inputFormatters: widget.inputFormatters,
       decoration: InputDecoration(
         hintText: widget.hintText,
         labelText: widget.labelText,

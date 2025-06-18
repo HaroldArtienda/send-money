@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:send_money/common_ui/sm_bottom_sheet.dart';
 import 'package:send_money/common_ui/sm_common_button.dart';
 import 'package:send_money/common_ui/sm_common_text_field.dart';
 import 'package:send_money/utils/constants.dart';
@@ -41,43 +43,7 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
       builder: (context) {
-        return Padding(
-          padding: const EdgeInsets.fromLTRB(24, 32, 24, 24),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                isSuccess ? Icons.check_circle : Icons.error,
-                color: isSuccess ? Colors.green : Colors.red,
-                size: 64,
-              ),
-              const SizedBox(height: 16),
-              Text(
-                isSuccess ? 'Success' : 'Failed',
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                isSuccess
-                    ? '₱$amount has been sent successfully!'
-                    : 'Sending ₱$amount failed. Please try again.',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 24),
-              SMCommonButton(
-                title: 'Done',
-                height: 50,
-                width: double.infinity,
-                isFilled: true,
-                onTap: () {
-                  Navigator.of(context).pop();
-                  context.replace(SMRoute.home.path);
-                },
-              ),
-            ],
-          ),
-        );
+        return SMBottomSheet(isSuccess: isSuccess, amount: amount);
       },
     );
   }
@@ -98,6 +64,9 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
                 hintText: 'Enter amount',
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
+                ],
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
                     return 'Amount is required';
@@ -108,9 +77,7 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
                   }
                   return null;
                 },
-                onChanged: (val) {
-                  setState(() {}); // Refresh button state
-                },
+                onChanged: (val) => setState(() {}),
               ),
               const SizedBox(height: 24.0),
               SMCommonButton(
