@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:send_money/home/bloc/home_bloc.dart';
+import 'package:send_money/home/bloc/home_state.dart';
 import 'package:send_money/utils/constants.dart';
 import 'package:send_money/utils/extensions.dart';
 import 'package:send_money/utils/sm_text_style.dart';
@@ -39,10 +42,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(
-                          isVisible ? formatMoney(124563.80) : "₱●●●●●●",
-                          style: SMTextStyle.moneyTitle(context),
-                        ),
+                        BlocBuilder<HomeBloc, HomeState>(
+                            builder: (context, state) {
+                          return state.isLoading
+                              ? CircularProgressIndicator()
+                              : Text(
+                                  isVisible
+                                      ? formatMoney(state.walletMoney)
+                                      : "₱●●●●●●",
+                                  style: SMTextStyle.moneyTitle(context),
+                                );
+                        }),
                         IconButton(
                             icon: Icon(
                                 isVisible

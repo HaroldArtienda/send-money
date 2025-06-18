@@ -1,0 +1,20 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:send_money/home/bloc/home_event.dart';
+import 'package:send_money/home/bloc/home_state.dart';
+
+class HomeBloc extends Bloc<HomeEvent, HomeState> {
+  HomeBloc() : super(HomeState.initial()) {
+    on<GetWalletMoney>(_getWalletMoney);
+
+    add(GetWalletMoney());
+  }
+
+  Future<void> _getWalletMoney(
+      GetWalletMoney event, Emitter<HomeState> emit) async {
+    emit(state.copyWith(isLoading: true));
+
+    //fake loading
+    await Future.delayed(Duration(milliseconds: 2000));
+    emit(state.copyWith(walletMoney: 124590.91, isLoading: false));
+  }
+}
