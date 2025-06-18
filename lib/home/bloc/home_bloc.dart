@@ -3,6 +3,8 @@ import 'package:send_money/home/bloc/home_event.dart';
 import 'package:send_money/home/bloc/home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
+  final double money = 124590.91;
+
   HomeBloc() : super(HomeState.initial()) {
     on<GetWalletMoney>(_getWalletMoney);
 
@@ -15,6 +17,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     //fake loading
     await Future.delayed(Duration(milliseconds: 2000));
-    emit(state.copyWith(walletMoney: 124590.91, isLoading: false));
+    emit(state.copyWith(walletMoney: money, isLoading: false));
   }
 }
